@@ -15,7 +15,7 @@ import lombok.Data;
 public class ItensVenda {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(nullable = false)
@@ -24,9 +24,4 @@ public class ItensVenda {
 	@ManyToOne
 	@JoinColumn(name = "tipoDeDoce_id", nullable = false)
 	private TipoDoce tipoDeDoce = new TipoDoce();
-	
-//	@JsonIgnore
-//	@ManyToOne
-//	@JoinColumn(name = "venda_id")
-//	private Venda venda;
 }
