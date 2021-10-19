@@ -1,6 +1,9 @@
 package br.com.mv.doceshub.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -10,13 +13,12 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Entity
 public class Cliente {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(unique = true)
@@ -29,7 +31,7 @@ public class Cliente {
 	@ManyToOne(optional = false)
 	private Empresa empresa;
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@ToString.Exclude
 	private List<Venda> vendas = new ArrayList<>();
 

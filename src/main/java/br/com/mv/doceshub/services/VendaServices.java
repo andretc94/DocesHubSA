@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class VendaServices<R> {
+public class VendaServices {
 
 	private final VendasRepository vendasRepository;
 
@@ -77,9 +77,11 @@ public class VendaServices<R> {
 
 		novaVenda.setValorTotal(totalCompra);
 
-		if (valorPago.compareTo(totalCompra) == -1) {
+		int compare = valorPago.compareTo(totalCompra);
+		//pago menor total
+		if (compare == -1) {
 			novaVenda.setPago(false);
-		} else if (valorPago.compareTo(totalCompra) == 1) {
+		} else if (compare == 1) { // pago maior que o total
 			throw new ValorPagoExcedidoException("A valor pago nao pode superior ao total da compra!");
 		} else {
 			novaVenda.setPago(true);
@@ -92,25 +94,25 @@ public class VendaServices<R> {
 
 	public Venda realizarPagamento(Long idVenda, BigDecimal valorRecebido) {
 		Venda venda = buscarVenda(idVenda);
-		
-		System.out.println(valorRecebido);
 
 		BigDecimal totalDevido = venda.getValorTotal().subtract(venda.getValorPago());
-		
-		System.out.println(totalDevido);
 
-		if (valorRecebido.compareTo(totalDevido) == 1) {
+		var compare = valorRecebido.compareTo(totalDevido);
+
+		if (compare == 1) {
 			throw new ValorPagoExcedidoException(String.format(
-					"A valor recebido R$ %.2f nao pode superior ao total devido da compra é R$ %.2f", valorRecebido, totalDevido));
+					"A valor recebido R$ %.2f nao pode superior ao total devido da compra é R$ %.2f",
+					valorRecebido,
+					totalDevido));
 		}
 		
-		if (valorRecebido.compareTo(totalDevido) == -1) {
+		if (compare == -1) {
 			venda.setValorPago(venda.getValorPago().add(valorRecebido));
 			venda.setDataPagamento(LocalDateTime.now());
 			return vendasRepository.save(venda);
 		}
 		
-		if (valorRecebido.compareTo(totalDevido) == 0) {
+		if (compare == 0) {
 			venda.setValorPago(venda.getValorPago().add(valorRecebido));
 			venda.setPago(true);
 			venda.setDataPagamento(LocalDateTime.now());

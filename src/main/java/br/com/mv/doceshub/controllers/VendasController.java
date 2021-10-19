@@ -1,40 +1,30 @@
 package br.com.mv.doceshub.controllers;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.com.mv.doceshub.dto.request.venda.RealizarPagamentoRequest;
 import br.com.mv.doceshub.dto.request.venda.VendaRequest;
 import br.com.mv.doceshub.dto.response.venda.VendaResponse;
 import br.com.mv.doceshub.model.Venda;
 import br.com.mv.doceshub.services.VendaServices;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @Validated
+@AllArgsConstructor
 @RequestMapping("/vendas")
 public class VendasController {
 
-	@Autowired
-	private VendaServices<Venda> vendasService;
+	private final VendaServices vendasService;
 
 	@GetMapping
 	@ApiOperation("Listar todas as Vendas")
@@ -100,7 +90,6 @@ public class VendasController {
 
 	private LocalDate converterData(String data) {
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("d-MM-yyyy");
-		LocalDate localDate = LocalDate.parse(data, format);
-		return localDate;
+		return LocalDate.parse(data, format);
 	}
 }

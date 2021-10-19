@@ -19,10 +19,10 @@ import lombok.Data;
 public class FormaPagamento {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "ä descricao nao pode ser vazia ou nula")
+	@NotBlank(message = "a descricao nao pode ser vazia ou nula")
 	@Column(unique = true)
 	private String descricao;
 	
