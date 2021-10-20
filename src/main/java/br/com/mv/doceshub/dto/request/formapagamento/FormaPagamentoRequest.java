@@ -17,9 +17,9 @@ public class FormaPagamentoRequest {
 	
 	
 	public static FormaPagamento converter(FormaPagamentoRequest request) {
-		FormaPagamento formaPagamento = new FormaPagamento();
-		formaPagamento.setDescricao(request.getDescricao());
-		return formaPagamento;
+		return FormaPagamento.builder()
+				.descricao(request.getDescricao())
+				.build();
 	}
 	
 }

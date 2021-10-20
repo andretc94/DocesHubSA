@@ -1,6 +1,6 @@
 package br.com.mv.doceshub.exceptions;
 
-public class FormaPagamentoNaoEncontradaException extends NegocioException{
+public class FormaPagamentoNaoEncontradaException extends NegocioException {
 
 	private static final long serialVersionUID = 1L;
 	

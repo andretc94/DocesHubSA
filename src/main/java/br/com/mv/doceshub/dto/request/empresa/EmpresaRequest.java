@@ -15,7 +15,7 @@ public class EmpresaRequest {
 	@NotBlank(message = "o nome nao pode ser vazio")
 	private String nome; 
 	
-	@NotNull(message = "informe se a empresa est· ativa(true) ou inativa(false)")
+	@NotNull(message = "informe se a empresa est√° ativa(true) ou inativa(false)")
 	private Boolean ativa;
 	
 	public static Empresa converter(EmpresaRequest request) {

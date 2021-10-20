@@ -39,8 +39,10 @@ public class VendaRequest {
 		cliente.setId(vendaReq.getCliente().getId());
 		venda.setCliente(cliente);
 
-		FormaPagamento formaPagamento = new FormaPagamento();
-		formaPagamento.setId(vendaReq.getFormaPagamento().getId());
+		FormaPagamento formaPagamento = FormaPagamento.builder()
+				.id(vendaReq.getFormaPagamento().getId())
+				.build();
+		
 		venda.setFormaPagamento(formaPagamento);
 
 		venda.setValorPago(vendaReq.getValorPago());

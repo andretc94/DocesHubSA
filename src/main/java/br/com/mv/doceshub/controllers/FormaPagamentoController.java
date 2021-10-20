@@ -33,7 +33,7 @@ import io.swagger.annotations.ApiOperation;
 public class FormaPagamentoController {
 
 	@Autowired
-	FormaPagamentoServices pagamentoService;
+	private FormaPagamentoServices pagamentoService;
 
 	@GetMapping
 	@ApiOperation("Listar todas Formas de Pagamento")
@@ -42,7 +42,7 @@ public class FormaPagamentoController {
 	}
 
 	@GetMapping("/por-descricao/")
-	@ApiOperation("Buscar todas Formas de Pagamento pela descrição")
+	@ApiOperation("Buscar todas Formas de Pagamento pela descriï¿½ï¿½o")
 	public List<FormaPagamentoResponse> buscarPorDescricao(@RequestParam @NotEmpty String descricao) {
 		return FormaPagamentoResponse.converter(pagamentoService.buscarPorDescricao(descricao));
 	}
