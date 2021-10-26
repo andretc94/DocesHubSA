@@ -1,27 +1,34 @@
 package br.com.mv.doceshub.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.Hibernate;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-@Getter
-@Setter
-@RequiredArgsConstructor
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true)
 	private String nome;
 	
 	private String email;
@@ -33,19 +40,8 @@ public class Cliente {
 	
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@ToString.Exclude
+	@Builder.Default
 	private List<Venda> vendas = new ArrayList<>();
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-		Cliente cliente = (Cliente) o;
-		return id != null && Objects.equals(id, cliente.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return 0;
-	}
 }
 

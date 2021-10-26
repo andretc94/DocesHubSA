@@ -9,7 +9,7 @@ public class VendaNaoPodeSerExcluidaException extends NegocioException {
 	}
 	
 	public VendaNaoPodeSerExcluidaException(Long id) {
-		this(String.format("A venda de cod %d n„o pode ser excluida pois n„o est· quitada", id));
+		this(String.format("A venda de cod %d n√£o pode ser excluida pois n√£o est√° quitada", id));
 	}
 
 }

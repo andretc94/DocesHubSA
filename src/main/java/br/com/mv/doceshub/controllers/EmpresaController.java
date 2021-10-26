@@ -72,7 +72,7 @@ public class EmpresaController {
 
 	@DeleteMapping("/{id}")
 	@ApiOperation("Deletar uma empresa pelo ID")
-	public ResponseEntity<?> deletar(@PathVariable(required = true) @PositiveOrZero @NotNull @NotBlank Long id){
+	public ResponseEntity<?> deletar(@PathVariable @NotNull Long id){
 		empresaServices.remover(id);
 		return ResponseEntity.ok("Deletado com sucesso!");
 	}

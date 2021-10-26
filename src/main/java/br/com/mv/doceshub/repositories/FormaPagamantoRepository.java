@@ -10,8 +10,6 @@ import br.com.mv.doceshub.model.FormaPagamento;
 @Repository
 public interface FormaPagamantoRepository extends JpaRepository<FormaPagamento, Long>{
 	
-	List<FormaPagamento> findByDescricao(String descricao);
-	
 	List<FormaPagamento> findByDescricaoContainingIgnoreCase(String descricao);
 	
 }

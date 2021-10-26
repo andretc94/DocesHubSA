@@ -42,7 +42,7 @@ public class FormaPagamentoController {
 	}
 
 	@GetMapping("/por-descricao/")
-	@ApiOperation("Buscar todas Formas de Pagamento pela descri��o")
+	@ApiOperation("Buscar todas Formas de Pagamento pela descrição")
 	public List<FormaPagamentoResponse> buscarPorDescricao(@RequestParam @NotEmpty String descricao) {
 		return FormaPagamentoResponse.converter(pagamentoService.buscarPorDescricao(descricao));
 	}

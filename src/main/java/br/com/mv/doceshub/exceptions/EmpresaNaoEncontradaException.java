@@ -9,7 +9,7 @@ public class EmpresaNaoEncontradaException extends NegocioException{
 	}
 	
 	public EmpresaNaoEncontradaException(Long id) {
-		this(String.format("A empresa com id: '%d' n„o foi encontrada", id));
+		this(String.format("A empresa com id: '%d' n√£o foi encontrada", id));
 	}
 
 }

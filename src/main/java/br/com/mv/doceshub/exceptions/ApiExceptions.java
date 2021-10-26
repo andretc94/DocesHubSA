@@ -29,95 +29,101 @@ public class ApiExceptions extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		ErrorApi erro = new ErrorApi();
-		erro.setErro(String.format("o parametro '%s' nao foi informado, corrija e tente novamente ",ex.getParameterName()));
+		erro.setErro(
+				String.format("o parametro '%s' nao foi informado, corrija e tente novamente ", ex.getParameterName()));
+		erro.setCod(status.value());
 		return handleExceptionInternal(ex, erro, headers, status, request);
 	}
-	
+
 	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<?> handleDescricaoNomeJaExisteException(ConstraintViolationException ex,
-			WebRequest request) {
-		HttpStatus status = HttpStatus.CONFLICT;
+	public ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
 		ErrorApi erro = new ErrorApi();
 		erro.setErro(ex.getMessage());
+		erro.setCod(status.value());
 		return handleExceptionInternal(ex, erro, new HttpHeaders(), status, request);
 	}
-	
+
 	// caso algum dado esteja errado
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		
+
 		String detail = ex.getFieldError().getDefaultMessage();
 		ErrorApi erro = new ErrorApi();
 		erro.setErro(detail);
-		return handleExceptionInternal(ex, erro ,headers, status, request);
+		erro.setCod(status.value());
+		return handleExceptionInternal(ex, erro, headers, status, request);
 	}
-	
-	//erro no formato da requisição
+
+	// erro no formato da requisiï¿½ï¿½o
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		Throwable rootCause = ExceptionUtils.getRootCause(ex);
 
-		if(rootCause instanceof InvalidFormatException) {
+		if (rootCause instanceof InvalidFormatException) {
 			return handleInvalidFormatException((InvalidFormatException) rootCause, headers, status, request);
-		} else if(rootCause instanceof PropertyBindingException) {
+		} else if (rootCause instanceof PropertyBindingException) {
 			return handlePropertyBindingException((PropertyBindingException) rootCause, headers, status, request);
 		}
-
-		String detail = "O corpo da requisição está inválido. Verifique erro de sintaxe.";
+		ex.printStackTrace();
+		String detail = "O corpo da requisiï¿½ï¿½o estï¿½ invï¿½lido. Verifique erro de sintaxe.";
 		ErrorApi erro = new ErrorApi();
 		erro.setErro(detail);
-		return handleExceptionInternal(ex, erro ,headers, status, request);
+		erro.setCod(status.value());
+		return handleExceptionInternal(ex, erro, headers, status, request);
 	}
 
-	//alguma propriedade ou valor da propriedade a mais
-	private ResponseEntity<Object> handlePropertyBindingException(PropertyBindingException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		
-		String path = ex.getPath().stream().map(ref->ref.getFieldName()).collect(Collectors.joining("."));
-		
-		String detail = String.format("A propriedade '%s' não existe, "
-				+ "corrija ou remova essa propriedade e tente novamente.", path);
-		
+	// alguma propriedade ou valor da propriedade a mais
+	private ResponseEntity<Object> handlePropertyBindingException(PropertyBindingException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request) {
+
+		String path = ex.getPath().stream().map(ref -> ref.getFieldName()).collect(Collectors.joining("."));
+
+		String detail = String.format(
+				"A propriedade '%s' nÃ£o existe, " + "corrija ou remova essa propriedade e tente novamente.", path);
+
 		ErrorApi erro = new ErrorApi();
 		erro.setErro(detail);
-		return handleExceptionInternal(ex, erro ,headers, status, request);
+		erro.setCod(status.value());
+		return handleExceptionInternal(ex, erro, headers, status, request);
 	}
 
-	//alguma propriedade com campo dados invalidos
+	// alguma propriedade com campo dados invalidos
 	private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
-		
-		String path = ex.getPath().stream().map(ref->ref.getFieldName()).collect(Collectors.joining("."));
-		
+
+		String path = ex.getPath().stream().map(ref -> ref.getFieldName()).collect(Collectors.joining("."));
+
 		String detail = String.format("A propriedade '%s' recebeu o valor '%s', "
-				+ "que é de um tipo inválido. Corrija e informe um valor compatível ",
-				path, ex.getValue());
-		
+				+ "que Ã© de um tipo invÃ¡lido. Corrija e informe um valor compativel ", path, ex.getValue());
+
 		ErrorApi erro = new ErrorApi();
 		erro.setErro(detail);
-		
-		return handleExceptionInternal(ex, erro ,headers, status, request);
+		erro.setCod(status.value());
+		return handleExceptionInternal(ex, erro, headers, status, request);
 	}
 
-	//alguma url invalida
+	// alguma url invalida
 	@Override
 	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
-		String detail = String.format("O recurso '%s', que você tentou acessar, é inexistente", ex.getRequestURL());
+		String detail = String.format("O recurso '%s', que vocÃª tentou acessar, Ã© inexistente", ex.getRequestURL());
 		ErrorApi erro = new ErrorApi();
 		erro.setErro(detail);
+		erro.setCod(status.value());
 		return handleExceptionInternal(ex, erro, headers, status, request);
 	}
-	
+
 	@ExceptionHandler(DescricaoNomeJaExisteException.class)
 	public ResponseEntity<?> handleDescricaoNomeJaExisteException(DescricaoNomeJaExisteException ex,
 			WebRequest request) {
 		HttpStatus status = HttpStatus.CONFLICT;
 		ErrorApi erro = new ErrorApi();
 		erro.setErro(ex.getMessage());
+		erro.setCod(status.value());
 		return handleExceptionInternal(ex, erro, new HttpHeaders(), status, request);
 	}
 
@@ -126,14 +132,16 @@ public class ApiExceptions extends ResponseEntityExceptionHandler {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		ErrorApi erro = new ErrorApi();
 		erro.setErro(ex.getMessage());
+		erro.setCod(status.value());
 		return handleExceptionInternal(ex, erro, new HttpHeaders(), status, request);
 	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
-	public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request){
+	public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		ErrorApi erro = new ErrorApi();
 		erro.setErro(ex.getMessage());
+		erro.setCod(status.value());
 		return handleExceptionInternal(ex, erro, new HttpHeaders(), status, request);
 	}
 
@@ -151,14 +159,12 @@ public class ApiExceptions extends ResponseEntityExceptionHandler {
 	private ResponseEntity<Object> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-		String detail = String.format(
-				"O parametro de URL '%s' recebeu o valor '%s', "
-						+ "que é de um tipo inválido. Corrija e informe um valor compatível com o tipo %s.",
-						ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName());
+		String detail = String.format("O parametro de URL '%s' recebeu o valor '%s', "
+				+ "que Ã© de um tipo invÃ¡lido. Corrija e tente novamente", ex.getName(), ex.getValue());
 
 		ErrorApi erro = new ErrorApi();
 		erro.setErro(detail);
-
+		erro.setCod(status.value());
 		return handleExceptionInternal(ex, erro, headers, status, request);
 	}
 
@@ -168,6 +174,7 @@ public class ApiExceptions extends ResponseEntityExceptionHandler {
 		if (body == null) {
 			ErrorApi erro = new ErrorApi();
 			erro.setErro(ex.getMessage());
+			erro.setCod(status.value());
 			body = erro;
 		}
 		return super.handleExceptionInternal(ex, body, headers, status, request);

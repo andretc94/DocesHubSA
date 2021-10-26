@@ -1,22 +1,28 @@
 package br.com.mv.doceshub.services;
 
-import br.com.mv.doceshub.exceptions.ValorPagoExcedidoException;
-import br.com.mv.doceshub.exceptions.VendaNaoEncontradaException;
-import br.com.mv.doceshub.exceptions.VendaNaoPodeSerExcluidaException;
-import br.com.mv.doceshub.model.*;
-import br.com.mv.doceshub.repositories.VendasRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
+import br.com.mv.doceshub.exceptions.ValorPagoExcedidoException;
+import br.com.mv.doceshub.exceptions.VendaNaoEncontradaException;
+import br.com.mv.doceshub.exceptions.VendaNaoPodeSerExcluidaException;
+import br.com.mv.doceshub.model.Cliente;
+import br.com.mv.doceshub.model.FormaPagamento;
+import br.com.mv.doceshub.model.ItensVenda;
+import br.com.mv.doceshub.model.TipoDoce;
+import br.com.mv.doceshub.model.Venda;
+import br.com.mv.doceshub.repositories.VendasRepository;
+import lombok.RequiredArgsConstructor;
+
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class VendaServices {
 
 	private final VendasRepository vendasRepository;
@@ -101,7 +107,7 @@ public class VendaServices {
 
 		if (compare == 1) {
 			throw new ValorPagoExcedidoException(String.format(
-					"A valor recebido R$ %.2f nao pode superior ao total devido da compra é R$ %.2f",
+					"A valor recebido R$ %.2f nao pode superior ao total devido da compra Ã© R$ %.2f",
 					valorRecebido,
 					totalDevido));
 		}
@@ -127,7 +133,6 @@ public class VendaServices {
 	}
 
 	public void delete(Long idVenda) {
-		System.out.println(idVenda);
 		Venda venda = this.buscarVenda(idVenda);
 		
 		if(venda.getPago()) {

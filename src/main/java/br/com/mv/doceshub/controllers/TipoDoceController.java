@@ -42,7 +42,7 @@ public class TipoDoceController {
 		return TipoDoceResponse.converter(listar);
 	}
 
-	@ApiOperation("Buscar todas Tipos de Doces pela descrição")
+	@ApiOperation("Buscar todas Tipos de Doces pela descricao")
 	@GetMapping("/por-descricao/")
 	public List<TipoDoceResponse> listar(@RequestParam @NotNull @NotEmpty String descricao) {
 		List<TipoDoce> buscarPorDescricao = tipoDoceService.buscarPorDescricao(descricao);

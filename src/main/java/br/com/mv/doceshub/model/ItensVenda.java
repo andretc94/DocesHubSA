@@ -8,10 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItensVenda {
 	
 	@Id
@@ -23,5 +29,6 @@ public class ItensVenda {
 	
 	@ManyToOne
 	@JoinColumn(name = "tipoDeDoce_id", nullable = false)
+	@Builder.Default
 	private TipoDoce tipoDeDoce = new TipoDoce();
 }

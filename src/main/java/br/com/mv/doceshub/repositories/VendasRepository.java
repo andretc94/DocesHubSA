@@ -26,8 +26,6 @@ public interface VendasRepository extends JpaRepository<Venda, Long>{
 	
 	List<Venda> findByDataCompraBetween(LocalDateTime inicio, LocalDateTime fim);
 	
-	List<Venda> findByDataPagamento(LocalDateTime dataPagamento);
-	
 	List<Venda> findByFormaPagamento(FormaPagamento formaPagamento);
 
 	List<Venda> findByDataPagamentoBetween(LocalDateTime inicio, LocalDateTime fim);

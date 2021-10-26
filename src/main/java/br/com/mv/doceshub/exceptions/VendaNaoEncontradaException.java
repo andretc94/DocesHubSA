@@ -9,7 +9,7 @@ public class VendaNaoEncontradaException extends NegocioException {
 	}
 	
 	public VendaNaoEncontradaException(Long id) {
-		this(String.format("N„o foi possivel encontrar venda com codigo %d", id));
+		this(String.format("A Venda com id: '%d' n√£o foi encontrada", id));
 	}
 
 }

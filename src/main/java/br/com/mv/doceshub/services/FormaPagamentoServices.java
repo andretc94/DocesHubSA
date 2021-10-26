@@ -3,7 +3,6 @@ package br.com.mv.doceshub.services;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -13,12 +12,13 @@ import br.com.mv.doceshub.exceptions.EntidadeEmUsoException;
 import br.com.mv.doceshub.exceptions.FormaPagamentoNaoEncontradaException;
 import br.com.mv.doceshub.model.FormaPagamento;
 import br.com.mv.doceshub.repositories.FormaPagamantoRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class FormaPagamentoServices {
 
-	@Autowired
-	private FormaPagamantoRepository pagamentoRepository;
+	private final FormaPagamantoRepository pagamentoRepository;
 
 	public List<FormaPagamento> listar(){
 		return pagamentoRepository.findAll();

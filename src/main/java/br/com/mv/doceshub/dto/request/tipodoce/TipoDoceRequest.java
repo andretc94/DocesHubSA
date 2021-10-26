@@ -8,23 +8,27 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 import br.com.mv.doceshub.model.TipoDoce;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class TipoDoceRequest {
 	
-	@NotNull(message = "descricao nao pode ser nula")
+	@NotNull(message = "descricao deve ser informada")
 	@NotBlank(message = "descricao nao pode ser vazia")
 	private String descricao;
 	
-	@NotNull(message = "valorUnitario nao pode ser nulo")
-	@Positive(message = "o valor unitario deve ver maior que 0")
+	@NotNull(message = "o valor unitario deve ser informado")
+	@Positive(message = "o valor unitario deve ver maior que R$0,00")
 	private BigDecimal valorUnitario;
 	
-	@NotNull(message = "quantidade de estoque nao pode ser nula")
-	@PositiveOrZero(message = "estoque nao pode ser menor que 0")
+	@NotNull(message = "a quantidade de estoque deve ser informada")
+	@PositiveOrZero(message = "o estoque nao pode ser menor que 0")
 	private Integer qtdEstoque;
 	
 	public static TipoDoce converter(TipoDoceRequest request) {

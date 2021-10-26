@@ -14,5 +14,4 @@ public interface TipoDoceRepository extends JpaRepository<TipoDoce, Long> {
 
 	List<TipoDoce> findByDescricaoContainingIgnoreCase(String descricao);
 	
-//	List<TipoDoce> findByIdIn(List<Long> idTipoDoce);
 }

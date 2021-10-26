@@ -3,7 +3,6 @@ package br.com.mv.doceshub.services;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -13,12 +12,13 @@ import br.com.mv.doceshub.exceptions.EmpresaNaoEncontradaException;
 import br.com.mv.doceshub.exceptions.EntidadeEmUsoException;
 import br.com.mv.doceshub.model.Empresa;
 import br.com.mv.doceshub.repositories.EmpresaRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class EmpresaServices {
 
-	@Autowired
-	private EmpresaRepository empresaRepository;
+	private final EmpresaRepository empresaRepository;
 	
 	public List<Empresa> listar(){
 		return empresaRepository.findAll();
@@ -53,7 +53,7 @@ public class EmpresaServices {
 		} catch (EmptyResultDataAccessException e) {
 			throw new EmpresaNaoEncontradaException(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new EntidadeEmUsoException();
+			throw new EntidadeEmUsoException("Empresa");
 		}
 	}
 	

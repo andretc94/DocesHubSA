@@ -9,7 +9,7 @@ public class TipoDoceNaoEncontradoException extends NegocioException{
 	}
 	
 	public TipoDoceNaoEncontradoException(Long id) {
-		this(String.format("O Tipo de Doce com id: '%d' n„o foi encontrado", id));
+		this(String.format("O Tipo de doce com id: '%d' n√£o foi encontrado", id));
 	}
 
 }

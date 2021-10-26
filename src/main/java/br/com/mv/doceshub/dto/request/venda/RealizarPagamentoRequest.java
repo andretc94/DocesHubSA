@@ -4,11 +4,15 @@ import java.math.BigDecimal;
 
 import javax.validation.constraints.Positive;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RealizarPagamentoRequest {
 
 	@Positive

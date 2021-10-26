@@ -3,7 +3,6 @@ package br.com.mv.doceshub.services;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -14,16 +13,17 @@ import br.com.mv.doceshub.exceptions.QuantidadeEstoqueException;
 import br.com.mv.doceshub.exceptions.TipoDoceNaoEncontradoException;
 import br.com.mv.doceshub.model.TipoDoce;
 import br.com.mv.doceshub.repositories.TipoDoceRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class TipoDoceServices {
-
-	@Autowired
-	private TipoDoceRepository tipoDoceRepository;
+	
+	private final TipoDoceRepository tipoDoceRepository;
 
 	public TipoDoce salvar(TipoDoce novoTipoDoce) {
 		if(novoTipoDoce.getQtdEstoque()<0) {
-			throw new QuantidadeEstoqueException("A quantidade do estoque não pode ser inferior a 0");
+			throw new QuantidadeEstoqueException("A quantidade do estoque nÃ£o pode ser inferior a 0");
 		}
 		try {
 			return tipoDoceRepository.save(novoTipoDoce);						
@@ -57,7 +57,7 @@ public class TipoDoceServices {
 		int novoEstoque = tipoDoce.getQtdEstoque() - quantidade;
 		
 		if(novoEstoque < 0) {
-			throw new QuantidadeEstoqueException("A quantidade solicitada não possui estoque disponivel");
+			throw new QuantidadeEstoqueException();
 		}
 		
 		tipoDoce.setQtdEstoque(novoEstoque);
@@ -71,7 +71,7 @@ public class TipoDoceServices {
 		} catch (EmptyResultDataAccessException e) {
 			throw new TipoDoceNaoEncontradoException(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new EntidadeEmUsoException();
+			throw new EntidadeEmUsoException("Tipo de Doce");
 		}
 	}
 

@@ -9,7 +9,7 @@ public class FormaPagamentoNaoEncontradaException extends NegocioException {
 	}
 	
 	public FormaPagamentoNaoEncontradaException(Long id) {
-		super(String.format("N„o foi possivel encontrar Forma de Pagamento com id informado: '%d'", id));
+		super(String.format("A Forma de Pagamento com id: '%d' n√£o foi encontrada", id));
 	}
 
 }

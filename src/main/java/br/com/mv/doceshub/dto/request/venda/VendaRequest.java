@@ -13,11 +13,15 @@ import br.com.mv.doceshub.model.Cliente;
 import br.com.mv.doceshub.model.FormaPagamento;
 import br.com.mv.doceshub.model.ItensVenda;
 import br.com.mv.doceshub.model.Venda;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class VendaRequest {
 
 	@PositiveOrZero(message = "o valor pago deve ser maior ou igual a 0.00")
@@ -25,6 +29,7 @@ public class VendaRequest {
 	
 	@NotNull
 	@NotEmpty(message = "informe uma lista de doces e quantidade valida")
+	@Builder.Default
 	private List<ItensVendaRequest> itens = new ArrayList<ItensVendaRequest>();
 	
 	@Valid
