@@ -21,9 +21,6 @@ public interface VendasRepository extends JpaRepository<Venda, Long>{
 
 	List<Venda> findByCliente(Cliente cliente);
 	
-	@Query("select v from Venda v where v.dataCompra = :data") 
-	List<Venda> teste(@Param(value = "data") LocalDateTime data);
-	
 	List<Venda> findByDataCompraBetween(LocalDateTime inicio, LocalDateTime fim);
 	
 	List<Venda> findByFormaPagamento(FormaPagamento formaPagamento);

@@ -1,6 +1,7 @@
 package br.com.mv.doceshub.dto.response.formapagamento;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.mv.doceshub.model.FormaPagamento;
 import lombok.Getter;
@@ -21,7 +22,7 @@ public class FormaPagamentoResponse {
 	}
 
 	public static List<FormaPagamentoResponse> converter(List<FormaPagamento> lista) {
-		return lista.stream().map(formaPagamento -> FormaPagamentoResponse.converter(formaPagamento)).toList();
+		return lista.stream().map(formaPagamento -> FormaPagamentoResponse.converter(formaPagamento)).collect(Collectors.toList());
 	}
 
 }

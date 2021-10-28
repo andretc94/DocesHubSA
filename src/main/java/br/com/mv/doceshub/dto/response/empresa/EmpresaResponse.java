@@ -1,6 +1,7 @@
 package br.com.mv.doceshub.dto.response.empresa;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.mv.doceshub.model.Empresa;
 import lombok.Getter;
@@ -25,7 +26,7 @@ public class EmpresaResponse {
 	}
 	
 	public static List<EmpresaResponse> converter(List<Empresa> empresas) {
-		return empresas.stream().map(empresa->converter(empresa)).toList();
+		return empresas.stream().map(empresa->converter(empresa)).collect(Collectors.toList());
 	}
 
 }

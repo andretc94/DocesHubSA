@@ -10,8 +10,6 @@ import br.com.mv.doceshub.model.TipoDoce;
 @Repository
 public interface TipoDoceRepository extends JpaRepository<TipoDoce, Long> {
 	
-	List<TipoDoce> findByDescricao(String descricao);
-
 	List<TipoDoce> findByDescricaoContainingIgnoreCase(String descricao);
-	
+
 }

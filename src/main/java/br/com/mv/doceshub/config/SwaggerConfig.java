@@ -29,7 +29,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 	private ApiInfo metaData() {
 	    return new ApiInfoBuilder()
 	        .title("Spring Boot REST API - DocesHubDesafioSA")
-	        .description("\"REST API em Spring Boot para gerenciamento de um pequeno negócio de doces\"")
+	        .description("\"REST API em Spring Boot para gerenciamento de um pequeno negocio de doces\"")
 	        .build();
 	  }
 	@Override

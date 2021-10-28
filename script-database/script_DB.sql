@@ -1,3 +1,5 @@
+create schema public;
+
 create table cliente (
 	id bigserial not null, 
 	email varchar(255), 

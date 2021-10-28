@@ -3,6 +3,7 @@ package br.com.mv.doceshub.dto.request.venda;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -61,7 +62,7 @@ public class VendaRequest {
 			itemVenda.setQuantidade(quantidade);
 			itemVenda.getTipoDeDoce().setId(tipoDoceId);
 			return itemVenda;
-		}).toList();
+		}).collect(Collectors.toList());
 
 		venda.setItens(collect);
 		return venda;

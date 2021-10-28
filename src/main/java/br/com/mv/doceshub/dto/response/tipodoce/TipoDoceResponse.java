@@ -2,6 +2,7 @@ package br.com.mv.doceshub.dto.response.tipodoce;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.mv.doceshub.model.TipoDoce;
 import lombok.Getter;
@@ -27,6 +28,6 @@ public class TipoDoceResponse {
 	}
 	
 	public static List<TipoDoceResponse> converter(List<TipoDoce> doces) {
-		return doces.stream().map(doce->TipoDoceResponse.converter(doce)).toList();
+		return doces.stream().map(doce->TipoDoceResponse.converter(doce)).collect(Collectors.toList());
 	}
 }

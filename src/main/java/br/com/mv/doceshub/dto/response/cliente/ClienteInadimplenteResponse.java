@@ -33,7 +33,7 @@ public class ClienteInadimplenteResponse {
 				return vendaResponse;
 			}).collect(Collectors.toList()));
 			return clienteResponse;
-		}).toList();
+		}).collect(Collectors.toList());
 	}
 
 }

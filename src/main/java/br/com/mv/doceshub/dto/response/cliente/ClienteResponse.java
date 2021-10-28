@@ -1,6 +1,7 @@
 package br.com.mv.doceshub.dto.response.cliente;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.mv.doceshub.model.Cliente;
 import lombok.Getter;
@@ -34,7 +35,7 @@ public class ClienteResponse {
 	}
 	
 	public static List<ClienteResponse> converter(List<Cliente> clientes) {
-		return clientes.stream().map(cliente->{return ClienteResponse.converter(cliente);}).toList();
+		return clientes.stream().map(cliente->ClienteResponse.converter(cliente)).collect(Collectors.toList());
 	}
 	
 }
